@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "target": "es6",
+    "outDir": "build",
+    "esModuleInterop": true
+  },
+  "include": ["api/*.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}

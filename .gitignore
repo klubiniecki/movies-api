@@ -1,0 +1,9 @@
+build
+logs
+*.log
+yarn-debug.log*
+yarn-error.log*
+node_modules/
+typings/
+.env
+.env.test

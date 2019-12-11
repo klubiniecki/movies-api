@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const getFilters = (query: any): any => {
+const getFilters = query => {
   const year = query["year"] ? { $in: query["year"] } : { $lt: 2000 };
 
   let genres = ["Fantasy", "Sci-Fi"];

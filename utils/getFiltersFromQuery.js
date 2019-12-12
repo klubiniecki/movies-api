@@ -1,4 +1,4 @@
-const getFilters = query => {
+const getFiltersFromQuery = query => {
   let filters = {
     year: { $lt: 2000 },
     genres: { $in: ["Fantasy", "Sci-Fi"] },
@@ -22,4 +22,4 @@ const getFilters = query => {
   return filters;
 };
 
-export default getFilters;
+export default getFiltersFromQuery;

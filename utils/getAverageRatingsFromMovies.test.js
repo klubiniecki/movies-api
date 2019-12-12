@@ -35,9 +35,9 @@ describe("getAverageRatingsFromMovies", () => {
   ];
 
   const result = [
-    { year: 1912, rating: 7.5 },
-    { year: 1918, rating: 6.6 },
-    { year: 1920, rating: 4.5 }
+    { year: 1912, rating: 7.5, numberOfMovies: 2 },
+    { year: 1918, rating: 6.6, numberOfMovies: 1 },
+    { year: 1920, rating: 4.5, numberOfMovies: 2 }
   ];
 
   test("returns correct year / rating array", () => {

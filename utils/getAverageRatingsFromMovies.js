@@ -1,18 +1,17 @@
 const getAverageRatingsFromMovies = movies => {
-  const years = Array.from(new Set(movies.map(m => m.year)));
+  const uniqueYears = Array.from(new Set(movies.map(m => m.year)));
 
-  return years.map(year => {
-    const moviesInYear = movies.filter(r => r.year === year);
-
+  return uniqueYears.map(year => {
+    const moviesInYear = movies.filter(m => m.year === year);
     const sumOfRatingsInYear = moviesInYear
       .map(m => m.imdb.rating)
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
 
-    const rating = Number(
-      (sumOfRatingsInYear / moviesInYear.length).toFixed(1)
-    );
-
-    return { year, rating };
+    return {
+      year,
+      rating: Number((sumOfRatingsInYear / moviesInYear.length).toFixed(1)),
+      numberOfMovies: moviesInYear.length
+    };
   });
 };
 

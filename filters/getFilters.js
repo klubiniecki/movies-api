@@ -1,19 +1,25 @@
 const getFilters = query => {
-  const year = query["year"] ? { $in: query["year"] } : { $lt: 2000 };
-
-  let genres = ["Fantasy", "Sci-Fi"];
-  if (query["genre"] === "fantasy") {
-    genres = ["Fantasy"];
-  }
-  if (query["genre"] === "sci-fi") {
-    genres = ["Sci-Fi"];
-  }
-
-  return {
-    year,
-    genres: { $in: genres },
+  let filters = {
+    year: { $lt: 2000 },
+    genres: { $in: ["Fantasy", "Sci-Fi"] },
     poster: { $exists: true }
   };
+
+  if (!query) {
+    return filters;
+  }
+
+  if (query["year"]) {
+    filters.year = { $in: query["year"] };
+  }
+  if (query["genre"] === "fantasy") {
+    filters.genres = { $in: ["Fantasy"] };
+  }
+  if (query["genre"] === "sci-fi") {
+    filters.genres = { $in: ["Sci-Fi"] };
+  }
+
+  return filters;
 };
 
 export default getFilters;

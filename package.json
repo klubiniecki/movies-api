@@ -5,7 +5,8 @@
   "main": "api/index.js",
   "scripts": {
     "start": "nodemon --exec babel-node api/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "engines": {
     "node": "10.x"
@@ -23,6 +24,7 @@
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "express": "^4.17.1",
+    "jest": "^24.9.0",
     "mongoose": "^5.5.9",
     "nodemon": "^1.19.0",
     "prettier": "^1.17.1"

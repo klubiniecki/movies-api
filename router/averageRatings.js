@@ -2,7 +2,7 @@ import getFiltersFromQuery from "../utils/getFiltersFromQuery";
 import Movie from "../models/movie";
 import getAverageRatingsFromMovies from "../utils/getAverageRatingsFromMovies";
 
-const getAverageRatings = async (_, res) => {
+const averageRatings = async (_, res) => {
   try {
     const fields = "year imdb.rating";
     const movies = await Movie.find(getFiltersFromQuery(), fields);
@@ -15,4 +15,4 @@ const getAverageRatings = async (_, res) => {
   }
 };
 
-export default getAverageRatings;
+export default averageRatings;

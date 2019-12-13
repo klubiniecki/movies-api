@@ -24,6 +24,10 @@ const movieSchema = new mongoose.Schema({
   imdb: {
     type: Object,
     required: true
+  },
+  _id: {
+    type: mongoose.SchemaTypes.ObjectId,
+    required: true
   }
 });
 

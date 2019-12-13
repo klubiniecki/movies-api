@@ -2,7 +2,7 @@ import { FIELDS } from "../utils/constants";
 import getFiltersFromQuery from "../utils/getFiltersFromQuery";
 import Movie from "../models/movie";
 
-const getAllMovies = async ({ query }, res) => {
+const movies = async ({ query }, res) => {
   try {
     const movies = await Movie.find(getFiltersFromQuery(query), FIELDS).sort({
       year: "asc"
@@ -18,4 +18,4 @@ const getAllMovies = async ({ query }, res) => {
   }
 };
 
-export default getAllMovies;
+export default movies;

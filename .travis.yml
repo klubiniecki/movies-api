@@ -2,18 +2,17 @@ language: node_js
 node_js:
   - 10
 
-deploy:
-  provider: heroku
-  app: scifi-movies-api
-  api_key:
-    secure: BsGZVESvqS7v4QVX9+mfp5A/ZNe8ByD1sb50kX/5M499MaS+CcOSuWUj74dKb/fyavRdqyy/lztl6H6rCc2aYKCEWDkUPfnRGnzvrsQ3W329EQW2rTz2Vaj9YvpdtG9xOZxgG6pO+7IcHZ8mrfXzCZCO4yu9PD81TGKQ1kPjj2+tbz+grULnWy0RWnz3JKXqzEGdHge3+dK0QSFsHC8A1ROE6eTgCZHdmuPWChqCM7lwoBXeRZ5WBg2OG5OCZ9Itv/UjB/sotMD/gJuOUqF+B8coy8rw9xefKsQ00CwTCnZHEf6deh/92zKsTfxCyuJYNIn3LiJpRv/MQk+xHdj5hj9+4ZUaJ/T5ZUdyvhu4cL9yPJf5FharHX+QWQO8kmPGHtTZCGFa4y08Wth0hcfb0uyjjyEdS3nN43NZYr1gHsmlXhYzdBZYHGmtTdaWHQsTH8MgLG5EL3tUeDC1lwiNyf7PbNYDGlxQR6lGM8EeuEz8CpbVGsD9pxGN4fDpsAEb8hTRzDU2A/yU+G/K2wqD27nrmi/3I9HznWRF29U6GD7AOdPsQuR9HA66WZjNMteh7vISoumb4DrQpbQAO2cL3/fT6rlpOqp8UQVXu7aJUogZieUyQrIUH7xpLdA4MV0mMuewqhfHabDn5ZDBrFuQLxRpisNqLulPSFff0zaNctk=
-
 jobs:
   include:
     - stage: test
-      name: "test"
+      name: "Test"
       script: yarn test
 
     - stage: deploy
-      name: "deploy"
-      script: yarn start
+      name: "Deploy"
+      script: skip
+      deploy:
+        provider: heroku
+        app: scifi-movies-api
+        api_key:
+          secure: BsGZVESvqS7v4QVX9+mfp5A/ZNe8ByD1sb50kX/5M499MaS+CcOSuWUj74dKb/fyavRdqyy/lztl6H6rCc2aYKCEWDkUPfnRGnzvrsQ3W329EQW2rTz2Vaj9YvpdtG9xOZxgG6pO+7IcHZ8mrfXzCZCO4yu9PD81TGKQ1kPjj2+tbz+grULnWy0RWnz3JKXqzEGdHge3+dK0QSFsHC8A1ROE6eTgCZHdmuPWChqCM7lwoBXeRZ5WBg2OG5OCZ9Itv/UjB/sotMD/gJuOUqF+B8coy8rw9xefKsQ00CwTCnZHEf6deh/92zKsTfxCyuJYNIn3LiJpRv/MQk+xHdj5hj9+4ZUaJ/T5ZUdyvhu4cL9yPJf5FharHX+QWQO8kmPGHtTZCGFa4y08Wth0hcfb0uyjjyEdS3nN43NZYr1gHsmlXhYzdBZYHGmtTdaWHQsTH8MgLG5EL3tUeDC1lwiNyf7PbNYDGlxQR6lGM8EeuEz8CpbVGsD9pxGN4fDpsAEb8hTRzDU2A/yU+G/K2wqD27nrmi/3I9HznWRF29U6GD7AOdPsQuR9HA66WZjNMteh7vISoumb4DrQpbQAO2cL3/fT6rlpOqp8UQVXu7aJUogZieUyQrIUH7xpLdA4MV0mMuewqhfHabDn5ZDBrFuQLxRpisNqLulPSFff0zaNctk=

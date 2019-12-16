@@ -1,18 +1,7 @@
-import getFiltersFromQuery from "../utils/getFiltersFromQuery";
-import Movie from "../models/movie";
-import getAverageRatingsFromMovies from "../utils/getAverageRatingsFromMovies";
+import express from "express";
+import averageRatings from "../controllers/averageRatings";
 
-const averageRatings = async (_, res) => {
-  try {
-    const fields = "year imdb.rating";
-    const movies = await Movie.find(getFiltersFromQuery(), fields);
+const router = express.Router();
+router.get("/", averageRatings);
 
-    res.json(
-      getAverageRatingsFromMovies(movies).sort((a, b) => b.rating - a.rating)
-    );
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-export default averageRatings;
+export default router;

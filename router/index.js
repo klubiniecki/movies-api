@@ -7,10 +7,10 @@ import movie from "./movie";
 
 const router = express.Router();
 
-router.get("/", movies);
-router.get("/bestyears", averageRatings);
-router.get("/rated", ratedMovies);
-router.get("/withcomments", moviesWithComments);
-router.get("/:id", movie);
+router.use("/", movies);
+router.use("/bestyears", averageRatings);
+router.use("/rated", ratedMovies);
+router.use("/withcomments", moviesWithComments);
+router.use("/:id", movie);
 
 export default router;

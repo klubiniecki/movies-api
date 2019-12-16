@@ -1,16 +1,19 @@
 import express from "express";
-import movies from "./movies";
-import averageRatings from "./averageRatings";
-import ratedMovies from "./ratedMovies";
-import moviesWithComments from "./moviesWithComments";
-import movie from "./movie";
+import MovieController from "../controllers/movieController";
+import MovieWithCommentsController from "../controllers/movieWithCommentsController";
+import RatingsController from "../controllers/ratingsController";
 
 const router = express.Router();
 
-router.use("/", movies);
-router.use("/bestyears", averageRatings);
-router.use("/rated", ratedMovies);
-router.use("/withcomments", moviesWithComments);
-router.use("/:id", movie);
+// Movies routes
+router.get("/", MovieController.getMovies);
+router.get("/withrating", MovieController.getMoviesWithRating);
+router.get("/withcomments", MovieWithCommentsController.getMoviesWithComments);
+
+// Ratings
+router.get("/bestyears", RatingsController.getBestRatedYears);
+
+// Single movie by id
+router.get("/:id", MovieController.getMovieById);
 
 export default router;

@@ -1,5 +1,7 @@
 import db from "mongoose";
 
+export const ObjectId = db.Types.ObjectId;
+
 const dbInit = () => {
   db.connect(process.env.DB_URL, {
     useNewUrlParser: true,

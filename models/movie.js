@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { ObjectId } from "../api/db";
 
 const movieSchema = new mongoose.Schema({
   title: {
@@ -26,7 +27,7 @@ const movieSchema = new mongoose.Schema({
     required: true
   },
   _id: {
-    type: mongoose.SchemaTypes.ObjectId,
+    type: ObjectId,
     required: true
   }
 });

@@ -10,7 +10,7 @@ const getFiltersFromQuery = query => {
   }
 
   if (query["year"]) {
-    filters.year = { $in: query["year"] };
+    filters.year = { $in: [Number(query["year"])] };
   }
   if (query["genre"] === "fantasy") {
     filters.genres = { $in: ["Fantasy"] };

@@ -10,7 +10,7 @@ describe("getFilters", () => {
   test("returns correct filters for year query", () => {
     expect(getFiltersFromQuery({ year: 1984 })).toEqual({
       ...filters,
-      year: { $in: 1984 }
+      year: { $in: [1984] }
     });
   });
 

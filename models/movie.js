@@ -1,36 +1,51 @@
 import mongoose from "mongoose";
-import { ObjectId } from "../api/db";
 
-const movieSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  genres: {
-    type: Array,
-    required: true
-  },
-  fullplot: {
-    type: String,
-    required: true
-  },
-  poster: {
-    type: String,
-    required: true
-  },
-  year: {
+const ratingSchema = new mongoose.Schema({
+  value: {
     type: Number,
     required: true
   },
-  imdb: {
-    type: Object,
-    required: true
-  },
-  _id: {
-    type: ObjectId,
+  votes: {
+    type: Number,
     required: true
   }
 });
+
+const movieSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true
+    },
+    year: {
+      type: Number,
+      required: true
+    },
+    genres: {
+      type: Array,
+      required: true
+    },
+    cast: {
+      type: Array,
+      required: true
+    },
+    plot: {
+      type: String,
+      required: true
+    },
+    rating: {
+      type: ratingSchema,
+      required: true
+    },
+    poster: {
+      type: String,
+      required: true
+    }
+  },
+  {
+    versionKey: false
+  }
+);
 
 const Movie = mongoose.model("Movie", movieSchema);
 

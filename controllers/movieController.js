@@ -1,5 +1,6 @@
 import Movie from "../models/movie";
 import getAggregationStages from "../utils/getAggregationStages";
+import { ObjectId } from "../api/db";
 
 class MovieController {
   // Get all movies
@@ -61,6 +62,31 @@ class MovieController {
       res.json(movie);
     } catch (err) {
       res.status(500).json({ message: err.message });
+    }
+  }
+
+  // Add movie
+  static async addMovie({ body }, res) {
+    const newMovie = new Movie(body);
+
+    try {
+      const movie = await Movie.create(newMovie);
+      res.status(201).json(movie);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  }
+
+  // Delete movie with provided ID
+  static async deleteMovie({ params }, res) {
+    try {
+      const { id } = params;
+      const movie = await Movie.deleteOne({ _id: ObjectId(id) });
+      res.status(200).json({
+        message: `${movie.deletedCount} movie deleted with id: ${id}.`
+      });
+    } catch (err) {
+      res.status(400).json({ message: err.message });
     }
   }
 }

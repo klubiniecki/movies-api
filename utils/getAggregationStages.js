@@ -6,9 +6,13 @@ const getAggregationStages = (query, { withRating, withComments }, movieId) => {
   const project = {
     title: "$title",
     genres: "$genres",
-    plot: "$fullplot",
+    plot: "$plot",
     posterUrl: "$poster",
-    year: "$year"
+    year: "$year",
+    rating: {
+      value: "$imdb.rating",
+      votes: "$imdb.votes"
+    }
   };
 
   if (withRating) {

@@ -5,15 +5,21 @@ import RatingsController from "../controllers/ratingsController";
 
 const router = express.Router();
 
-// Movies routes
+// GET Movies
 router.get("/", MovieController.getMovies);
 router.get("/withrating", MovieController.getMoviesWithRating);
 router.get("/withcomments", MovieWithCommentsController.getMoviesWithComments);
 
-// Ratings
+// GET Ratings
 router.get("/bestyears", RatingsController.getBestRatedYears);
 
-// Single movie by id
+// GET Single movie by id
 router.get("/:id", MovieController.getMovieById);
+
+// POST Single movie
+router.post("/", MovieController.addMovie);
+
+// DELETE Single movie by id
+router.delete("/:id", MovieController.deleteMovie);
 
 export default router;

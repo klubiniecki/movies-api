@@ -1,25 +1,24 @@
 import express from "express";
-import MovieController from "../controllers/movieController";
-import MovieWithCommentsController from "../controllers/movieWithCommentsController";
-import RatingsController from "../controllers/ratingsController";
+import MoviesController from "../controllers/moviesController";
+import CommentsController from "../controllers/commentsController";
 
 const router = express.Router();
 
-// GET Movies
-router.get("/", MovieController.getMovies);
-router.get("/withrating", MovieController.getMoviesWithRating);
-router.get("/withcomments", MovieWithCommentsController.getMoviesWithComments);
+// Movies
+router.get("/movies", MoviesController.getMovies);
+router.get("/movies/:id", MoviesController.getMovie);
+router.post("/movies", MoviesController.addMovie);
+router.delete("/movies/:id", MoviesController.deleteMovie);
 
-// GET Ratings
-router.get("/bestyears", RatingsController.getBestRatedYears);
+// Comments
+router.get("/movies/:id/comments", CommentsController.getCommentsByMovieId);
+router.get("/comments/:id", CommentsController.getComment);
+router.post("/comments", CommentsController.addComment);
+router.delete("/comments/:id", CommentsController.deleteComment);
 
-// GET Single movie by id
-router.get("/:id", MovieController.getMovieById);
-
-// POST Single movie
-router.post("/", MovieController.addMovie);
-
-// DELETE Single movie by id
-router.delete("/:id", MovieController.deleteMovie);
+// PATCH Single movie by id
+// router.patch("/movies/:id", MoviesController.updateeMovie);
+// PATCH Single comment by id
+// router.patch("/comments/:id", CommentsController.updateComment);
 
 export default router;

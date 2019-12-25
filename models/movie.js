@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
 
+const date = new Date();
+
 const ratingSchema = new mongoose.Schema({
   value: {
     type: Number,
+    min: 1,
+    max: 10,
     required: true
   },
   votes: {
@@ -19,6 +23,7 @@ const movieSchema = new mongoose.Schema(
     },
     year: {
       type: Number,
+      max: date.getFullYear(),
       required: true
     },
     genres: {

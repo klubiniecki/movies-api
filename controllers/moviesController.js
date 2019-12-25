@@ -25,7 +25,7 @@ class MoviesController {
     try {
       const { id } = params;
       const movie = await Movie.aggregate(
-        DbPipelineBuilder.getMoviePipelineFromMovieId(id)
+        DbPipelineBuilder.getMoviePipelineFromId(id)
       );
 
       if (!movie) {
@@ -49,10 +49,24 @@ class MoviesController {
     }
   }
 
+  static async updateMovie({ params, body }, res) {
+    try {
+      const { id } = params;
+      const movie = await Movie.findByIdAndUpdate(ObjectId(id), body, {
+        new: true,
+        runValidators: true
+      });
+
+      res.status(200).json(movie);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  }
+
   static async deleteMovie({ params }, res) {
     try {
       const { id } = params;
-      const movie = await Movie.deleteOne({ _id: ObjectId(id) });
+      const movie = await Movie.findByIdAndDelete(ObjectId(id));
 
       res.status(200).json({
         message: `${movie.deletedCount} movie deleted with id: ${id}.`

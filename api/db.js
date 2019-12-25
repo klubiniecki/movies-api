@@ -7,6 +7,7 @@ const dbInit = () => {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });
+  db.set("useFindAndModify", false);
   db.connection.on("error", err => console.error("Database error:", err));
   db.connection.once("open", () => console.log("Database connected"));
 };

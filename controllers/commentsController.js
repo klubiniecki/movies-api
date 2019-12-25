@@ -48,10 +48,24 @@ class CommentsController {
     }
   }
 
+  static async updateComment({ params, body }, res) {
+    try {
+      const { id } = params;
+      const comment = await Comment.findByIdAndUpdate(ObjectId(id), body, {
+        new: true,
+        runValidators: true
+      });
+
+      res.status(200).json(comment);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
+    }
+  }
+
   static async deleteComment({ params }, res) {
     try {
       const { id } = params;
-      const comment = await Comment.deleteOne({ _id: ObjectId(id) });
+      const comment = await Comment.findByIdAndDelete(ObjectId(id));
 
       res.status(200).json({
         message: `${comment.deletedCount} comment deleted with id: ${id}.`

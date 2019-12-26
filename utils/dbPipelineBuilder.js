@@ -1,10 +1,12 @@
 import { ObjectId } from "../api/db";
+import getFiltersFromQuery from "./getFiltersFromQuery";
+import getLimitFromQuery from "./getLimitFromQuery";
 
 const DB_PROJECT_MOVIE = {
   title: "$title",
   year: "$year",
   genres: "$genres",
-  posterUrl: "$poster"
+  posterUrl: "$posterUrl"
 };
 const DB_PROJECT_MOVIE_DETAILS = {
   ...DB_PROJECT_MOVIE,
@@ -12,8 +14,8 @@ const DB_PROJECT_MOVIE_DETAILS = {
   runtime: "$runtime",
   plot: "$plot",
   rating: {
-    value: "$imdb.rating",
-    votes: "$imdb.votes"
+    value: "$rating.value",
+    votes: "$rating.votes"
   }
 };
 const DB_PROJECT_COMMENT = {

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { MOVIE_GENRES } from "../utils/constants";
 
 const date = new Date();
 
@@ -27,11 +28,27 @@ const movieSchema = new mongoose.Schema(
       required: true
     },
     genres: {
-      type: Array,
+      type: [
+        {
+          type: String,
+          enum: MOVIE_GENRES,
+          required: true
+        }
+      ],
+      required: true
+    },
+    runtime: {
+      type: Number,
+      min: 1,
       required: true
     },
     cast: {
-      type: Array,
+      type: [
+        {
+          type: String,
+          required: true
+        }
+      ],
       required: true
     },
     plot: {
@@ -42,7 +59,7 @@ const movieSchema = new mongoose.Schema(
       type: ratingSchema,
       required: true
     },
-    poster: {
+    posterUrl: {
       type: String,
       required: true
     }

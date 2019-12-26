@@ -1,8 +1,6 @@
 const getFiltersFromQuery = query => {
   let filters = {
-    year: { $lt: 2000 },
-    genres: { $in: ["Fantasy", "Sci-Fi"] },
-    poster: { $exists: true }
+    posterUrl: { $exists: true }
   };
 
   if (!query) {
@@ -15,7 +13,7 @@ const getFiltersFromQuery = query => {
   if (query["genre"] === "fantasy") {
     filters.genres = { $in: ["Fantasy"] };
   }
-  if (query["genre"] === "sci-fi") {
+  if (query["genre"] === "sci_fi") {
     filters.genres = { $in: ["Sci-Fi"] };
   }
 

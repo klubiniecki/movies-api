@@ -2,9 +2,7 @@ import getFiltersFromQuery from "./getFiltersFromQuery";
 
 describe("getFilters", () => {
   const filters = {
-    year: { $lt: 2000 },
-    genres: { $in: ["Fantasy", "Sci-Fi"] },
-    poster: { $exists: true }
+    posterUrl: { $exists: true }
   };
 
   test("returns correct filters for year query", () => {

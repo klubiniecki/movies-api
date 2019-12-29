@@ -1,6 +1,5 @@
-import { ObjectId } from "../api/db";
-import getFiltersFromQuery from "./getFiltersFromQuery";
-import getLimitFromQuery from "./getLimitFromQuery";
+import { ObjectId } from "../database/dbInit";
+import QueryService from "./queryService";
 
 const DB_PROJECT_MOVIE = {
   title: "$title",
@@ -26,12 +25,19 @@ const DB_PROJECT_COMMENT = {
   movieId: "$movie_id"
 };
 
-class DbPipelineBuilder {
+const {
+  getFiltersFromQuery,
+  getLimitFromQuery,
+  getSkipFromQuery
+} = QueryService;
+
+class AggregationService {
   static getMoviePipelineFromQuery(query) {
     return [
       {
         $match: getFiltersFromQuery(query)
       },
+      { $skip: getSkipFromQuery(query) },
       { $limit: getLimitFromQuery(query) },
       { $project: DB_PROJECT_MOVIE }
     ];
@@ -65,4 +71,4 @@ class DbPipelineBuilder {
   }
 }
 
-export default DbPipelineBuilder;
+export default AggregationService;

@@ -2,8 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
-import router from "../router";
-import dbInit from "./db";
+import router from "./router";
+import dbInit from "./database/dbInit";
 
 dotenv.config();
 dbInit();

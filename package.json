@@ -4,7 +4,7 @@
   "description": "sample movies api",
   "main": "api/index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node api/index.js",
+    "start": "nodemon --exec babel-node src/index.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -12,7 +12,7 @@
     "node": "10.x"
   },
   "author": "klubiniecki",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@babel/cli": "^7.7.5",
     "@babel/core": "^7.7.5",

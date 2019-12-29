@@ -1,12 +1,12 @@
 import Movie from "../models/movie";
-import { ObjectId } from "../api/db";
-import DbPipelineBuilder from "../utils/dbPipelineBuilder";
+import { ObjectId } from "../database/dbInit";
+import AggregationService from "../services/aggregationService";
 
 class MoviesController {
   static async getMovies({ query }, res) {
     try {
       const movies = await Movie.aggregate(
-        DbPipelineBuilder.getMoviePipelineFromQuery(query)
+        AggregationService.getMoviePipelineFromQuery(query)
       );
 
       if (movies.length < 1) {
@@ -25,7 +25,7 @@ class MoviesController {
     try {
       const { id } = params;
       const movie = await Movie.aggregate(
-        DbPipelineBuilder.getMoviePipelineFromId(id)
+        AggregationService.getMoviePipelineFromId(id)
       );
 
       if (!movie) {

@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
-import { ObjectId } from "../api/db";
+import { ObjectId } from "../database/dbInit";
+
+const date = new Date().toISOString();
 
 const commentSchema = new mongoose.Schema(
   {
@@ -9,6 +11,7 @@ const commentSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      match: /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
       required: true
     },
     text: {
@@ -17,7 +20,7 @@ const commentSchema = new mongoose.Schema(
     },
     date: {
       type: Date,
-      required: true
+      default: date
     },
     movie_id: {
       type: ObjectId,

@@ -1,13 +1,13 @@
 import Comment from "../models/comment";
-import { ObjectId } from "../api/db";
-import DbPipelineBuilder from "../utils/dbPipelineBuilder";
+import { ObjectId } from "../database/dbInit";
+import AggregationService from "../services/aggregationService";
 
 class CommentsController {
   static async getCommentsByMovieId({ params }, res) {
     try {
       const { id } = params;
       const comments = await Comment.aggregate(
-        DbPipelineBuilder.getCommentPipelineFromMovieId(id)
+        AggregationService.getCommentPipelineFromMovieId(id)
       );
 
       if (!comments) {
@@ -24,7 +24,7 @@ class CommentsController {
     try {
       const { id } = params;
       const comment = await Comment.aggregate(
-        DbPipelineBuilder.getCommentPipelineFromId(id)
+        AggregationService.getCommentPipelineFromId(id)
       );
 
       if (!comment) {

@@ -2,28 +2,49 @@ import { PAGE_SIZE, MAX_PAGE_SIZE } from "../utils/constants";
 import getCamelCase from "../utils/getCamelCase";
 
 class QueryService {
-  static getFiltersFromQuery(query) {
-    let filters = {
-      posterUrl: { $exists: true }
-    };
+  static getMatchFromQuery(query = "") {
+    let match = {};
 
-    if (!query) {
-      return filters;
+    if (query["title"]) {
+      match.$text = { $search: `\"${query["title"]}\"` };
     }
 
     if (query["year"]) {
-      const year = [Number(query["year"])];
-      filters.year = { $in: year };
+      match.year = { $in: [Number(query["year"])] };
     }
 
     if (query["genres"]) {
       const genres = query["genres"]
         .split(",")
         .map(genre => getCamelCase(genre));
-      filters.genres = { $in: genres };
+
+      match.genres = { $in: genres };
     }
 
-    return filters;
+    return match;
+  }
+
+  static getSortFromQuery(query) {
+    let sort = { year: 1 };
+
+    if (query["sort"] === "newest") {
+      sort = { year: -1 };
+    }
+
+    if (query["sort"] === "most_voted") {
+      sort = { "rating.votes": -1 };
+    }
+
+    if (query["sort"] === "top_rated") {
+      sort = { "rating.value": -1 };
+    }
+
+    return query["title"]
+      ? {
+          ...sort,
+          score: { $meta: "textScore" }
+        }
+      : sort;
   }
 
   static getLimitFromQuery({ page_size }) {

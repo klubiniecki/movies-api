@@ -5,17 +5,17 @@ const DB_PROJECT_MOVIE = {
   title: "$title",
   year: "$year",
   genres: "$genres",
-  posterUrl: "$posterUrl"
+  posterUrl: "$posterUrl",
+  rating: {
+    value: "$rating.value",
+    votes: "$rating.votes"
+  }
 };
 const DB_PROJECT_MOVIE_DETAILS = {
   ...DB_PROJECT_MOVIE,
   cast: "$cast",
   runtime: "$runtime",
-  plot: "$plot",
-  rating: {
-    value: "$rating.value",
-    votes: "$rating.votes"
-  }
+  plot: "$plot"
 };
 const DB_PROJECT_COMMENT = {
   name: "$name",
@@ -26,16 +26,20 @@ const DB_PROJECT_COMMENT = {
 };
 
 const {
-  getFiltersFromQuery,
+  getMatchFromQuery,
   getLimitFromQuery,
-  getSkipFromQuery
+  getSkipFromQuery,
+  getSortFromQuery
 } = QueryService;
 
 class AggregationService {
   static getMoviePipelineFromQuery(query) {
     return [
       {
-        $match: getFiltersFromQuery(query)
+        $match: getMatchFromQuery(query)
+      },
+      {
+        $sort: getSortFromQuery(query)
       },
       { $skip: getSkipFromQuery(query) },
       { $limit: getLimitFromQuery(query) },
@@ -66,6 +70,7 @@ class AggregationService {
       {
         $match: { movie_id: ObjectId(id) }
       },
+      { $sort: { date: -1 } },
       { $project: DB_PROJECT_COMMENT }
     ];
   }

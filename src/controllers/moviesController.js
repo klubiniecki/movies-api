@@ -1,18 +1,26 @@
 import Movie from "../models/movie";
 import { ObjectId } from "../database/dbInit";
 import AggregationService from "../services/aggregationService";
+import ValidationService from "../services/validationService";
+
+const {
+  getMoviePipelineFromQuery,
+  getMoviePipelineFromId
+} = AggregationService;
 
 class MoviesController {
   static async getMovies({ query }, res) {
     try {
-      const movies = await Movie.aggregate(
-        AggregationService.getMoviePipelineFromQuery(query)
-      );
+      const movies = await Movie.aggregate(getMoviePipelineFromQuery(query));
 
       if (movies.length < 1) {
-        res
-          .status(404)
-          .json({ message: `No movies found for year: ${query.year}!` });
+        const {
+          status,
+          message,
+          invalidQuery
+        } = ValidationService.queryValidator(query);
+
+        res.status(status).json({ error: { invalidQuery, message }, query });
       }
 
       res.json(movies);
@@ -24,12 +32,11 @@ class MoviesController {
   static async getMovie({ params }, res) {
     try {
       const { id } = params;
-      const movie = await Movie.aggregate(
-        AggregationService.getMoviePipelineFromId(id)
-      );
+      const resultsArray = await Movie.aggregate(getMoviePipelineFromId(id));
+      const movie = resultsArray[0];
 
       if (!movie) {
-        res.json({ message: `No movie found for id: ${id}!` });
+        res.status(404).json({ message: `No movie found for id: ${id}!` });
       }
 
       res.json(movie);
@@ -45,7 +52,7 @@ class MoviesController {
 
       res.status(201).json(movie);
     } catch (err) {
-      res.status(400).json({ message: err.message });
+      res.status(500).json({ message: err.message });
     }
   }
 
@@ -59,7 +66,7 @@ class MoviesController {
 
       res.status(200).json(movie);
     } catch (err) {
-      res.status(400).json({ message: err.message });
+      res.status(500).json({ message: err.message });
     }
   }
 
@@ -72,7 +79,7 @@ class MoviesController {
         message: `${movie.deletedCount} movie deleted with id: ${id}.`
       });
     } catch (err) {
-      res.status(400).json({ message: err.message });
+      res.status(500).json({ message: err.message });
     }
   }
 }
